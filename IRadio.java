@@ -10,4 +10,5 @@ public interface IRadio {
     void switchOnOff(); 
     void switchAMFM(); 
     double nextStation(); 
+    
 }
