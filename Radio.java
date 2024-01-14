@@ -3,9 +3,13 @@ public class Radio implements IRadio {
     public boolean power; 
     public double station; 
     public int buttonID; 
+    private double[] savedStationsAM;
+    private double[] savedStationsFM;
 
-    /** Constructs a new radio with the given initial settings. */
-
+    public Radio() {
+        savedStationsAM = new double[12];
+        savedStationsFM = new double[12];
+    }
     @Override
     public boolean isAM() {
         if (frequency == true){
@@ -44,13 +48,20 @@ public class Radio implements IRadio {
     
     @Override
     public void saveStation(int buttonID, double station) {
-        
+        if (isAM()) {
+            savedStationsAM[buttonID - 1] = station;
+        } else {
+            savedStationsFM[buttonID - 1] = station;
+        }
     }
 
     @Override
     public double selectStation(int buttonID) {
-       
-        return 0;
+        if (isAM()) {
+            return savedStationsAM[buttonID - 1];
+        } else {
+            return savedStationsFM[buttonID - 1];
+        }
     }
 
     @Override

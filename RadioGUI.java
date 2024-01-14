@@ -10,9 +10,11 @@ public class RadioGUI {
     private Radio radio;
     private JButton[] buttons;
     private JLabel statusLabel;
+    private double currentDisplayedStation;
 
     public RadioGUI() {
         radio = new Radio();
+        currentDisplayedStation = radio.getStation();
         createAndShowGUI();
     }
 
@@ -78,8 +80,12 @@ public class RadioGUI {
         public void actionPerformed(ActionEvent e) {
             JButton clickedButton = (JButton) e.getSource();
             String buttonText = clickedButton.getText();
-            statusLabel.setText("Botón clickeado: " + buttonText);
-            // Puedes agregar aquí la lógica para interactuar con la clase Radio según el botón clickeado
+
+            int buttonID = Integer.parseInt(buttonText.substring(buttonText.indexOf(" ") + 1));
+            double savedStation = radio.selectStation(buttonID);
+
+            currentDisplayedStation = savedStation;
+            updateStatusLabel();
         }
     }
 
@@ -91,8 +97,8 @@ public class RadioGUI {
         public LongPressMouseListener(JButton button, int buttonID) {
             this.button = button;
             this.buttonID = buttonID;
-            timer = new Timer(5000, new LongPressTimerListener());
-            timer.setRepeats(false);
+            this.timer = new Timer(5000, new LongPressTimerListener());
+            this.timer.setRepeats(false);
         }
 
         @Override
@@ -109,7 +115,13 @@ public class RadioGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (radio.isOn()) {
-                    statusLabel.setText("Botón " + buttonID + " mantenido presionado por más de 5 segundos");
+                    double station = radio.getStation();
+                    radio.saveStation(buttonID, station);
+
+                    currentDisplayedStation = station;
+                    updateStatusLabel();
+
+                    statusLabel.setText("Botón " + buttonID + " mantenido presionado por más de 5 segundos. Estación guardada: " + station);
                 } else {
                     statusLabel.setText("La radio está apagada. Enciéndela para acceder a esta función.");
                 }
@@ -122,6 +134,7 @@ public class RadioGUI {
         public void actionPerformed(ActionEvent e) {
             if (radio.isOn()) {
                 radio.nextStation();
+                currentDisplayedStation = radio.getStation();
                 updateStatusLabel();
             } else {
                 statusLabel.setText("La radio está apagada. Enciéndela para avanzar de estación.");
@@ -139,10 +152,8 @@ public class RadioGUI {
     private void updateStatusLabel() {
         String stateText = radio.isOn() ? "Encendida" : "Apagada";
         String modeText = radio.isAM() ? "AM" : "FM";
-        double station = radio.getStation();
+        double station = currentDisplayedStation;
         statusLabel.setText("Estado: " + stateText + " | Modo: " + modeText + " | Estación: " + station);
     }
 
-    
 }
-
