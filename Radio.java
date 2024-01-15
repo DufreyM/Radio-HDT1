@@ -31,6 +31,7 @@ public class Radio implements IRadio {
     }
 
     @Override
+    
     public double nextStation() {
         if (isAM()) { 
             station += 10;
@@ -67,6 +68,12 @@ public class Radio implements IRadio {
     @Override
     public void switchAMFM() {
         frequency = !frequency; 
+        if (frequency == true){
+            station = 530; 
+            } 
+            else {
+            station = 87.9; 
+        } 
     }
 
     @Override

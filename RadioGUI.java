@@ -19,12 +19,16 @@ public class RadioGUI {
     }
 
     private void createAndShowGUI() {
-        JFrame frame = new JFrame("Radio GUI");
+        JFrame frame = new JFrame("Radio La Tracalosa");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200);
 
+        JLabel stationLabel = new JLabel("Radio La Tracalosa", SwingConstants.CENTER);
+        frame.add(stationLabel, BorderLayout.NORTH);
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(6, 3));
+
 
         JButton powerButton = new JButton("Encender/Apagar");
         powerButton.addActionListener(new PowerButtonClickListener());
@@ -53,7 +57,7 @@ public class RadioGUI {
         frame.getContentPane().add(BorderLayout.CENTER, panel);
         frame.setVisible(true);
     }
-
+    //BOTÓN PARA ENCENDER Y APAGAR
     private class PowerButtonClickListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -62,12 +66,13 @@ public class RadioGUI {
             updateStatusLabel();
         }
     }
-
+    //BOTÓN PARA CAMBIAR DE AM Y FM 
     private class AmFmButtonClickListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (radio.isOn()) {
                 radio.switchAMFM();
+                updateButtons();
                 updateStatusLabel();
             } else {
                 statusLabel.setText("La radio está apagada. Enciéndela para cambiar la frecuencia.");
@@ -90,12 +95,11 @@ public class RadioGUI {
     }
 
     private class LongPressMouseListener extends MouseAdapter {
-        private JButton button;
+
         private int buttonID;
         private Timer timer;
 
         public LongPressMouseListener(JButton button, int buttonID) {
-            this.button = button;
             this.buttonID = buttonID;
             this.timer = new Timer(5000, new LongPressTimerListener());
             this.timer.setRepeats(false);
