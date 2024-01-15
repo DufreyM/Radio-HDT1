@@ -71,6 +71,7 @@ public class RadioGUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (radio.isOn()) {
+                updateStatusLabel();
                 radio.switchAMFM();
                 updateButtons();
                 updateStatusLabel();

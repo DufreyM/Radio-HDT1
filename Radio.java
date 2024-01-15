@@ -10,6 +10,7 @@ public class Radio implements IRadio {
         savedStationsAM = new double[12];
         savedStationsFM = new double[12];
     }
+
     @Override
     public boolean isAM() {
         if (frequency == true){
@@ -59,7 +60,7 @@ public class Radio implements IRadio {
     @Override
     public double selectStation(int buttonID) {
         if (isAM()) {
-            return savedStationsAM[buttonID - 1];
+            return savedStationsAM[buttonID - 1]; 
         } else {
             return savedStationsFM[buttonID - 1];
         }
@@ -68,7 +69,7 @@ public class Radio implements IRadio {
     @Override
     public void switchAMFM() {
         frequency = !frequency; 
-        if (frequency == true){
+        if (frequency == true){ //Se cambian los valores si se modifica la frecuencia
             station = 530; 
             } 
             else {
