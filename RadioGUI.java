@@ -14,7 +14,7 @@ public class RadioGUI {
 
     public RadioGUI() {
         radio = new Radio();
-        currentDisplayedStation = radio.getStation();
+        currentDisplayedStation = radio.nextStation();
         createAndShowGUI();
     }
 
@@ -120,7 +120,7 @@ public class RadioGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (radio.isOn()) {
-                    double station = radio.getStation();
+                    double station = radio.nextStation();
                     radio.saveStation(buttonID, station);
 
                     currentDisplayedStation = station;
@@ -138,8 +138,8 @@ public class RadioGUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (radio.isOn()) {
-                radio.nextStation();
-                currentDisplayedStation = radio.getStation();
+                double current = radio.nextStation();
+                currentDisplayedStation = current; //AQUÍ 
                 updateStatusLabel();
             } else {
                 statusLabel.setText("La radio está apagada. Enciéndela para avanzar de estación.");

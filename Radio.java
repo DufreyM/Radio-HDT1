@@ -9,6 +9,9 @@ public class Radio implements IRadio {
     public Radio() {
         savedStationsAM = new double[12];
         savedStationsFM = new double[12];
+        power = false; 
+        frequency = true;
+        station = 530;
     }
 
     @Override
@@ -92,36 +95,5 @@ public class Radio implements IRadio {
     }
     
 
-    public boolean isFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(boolean frequency) {
-        this.frequency = frequency;
-    }
-
-    public boolean isPower() {
-        return power;
-    }
-
-    public void setPower(boolean power) {
-        this.power = power;
-    }
-
-    public double getStation() {
-        return station;
-    }
-
-    public void setStation(double station) {
-        this.station = station;
-    }
-
-    public int getButtonID() {
-        return buttonID;
-    }
-
-    public void setButtonID(int buttonID) {
-        this.buttonID = buttonID;
-    }
-    
+   
 }
