@@ -3,7 +3,7 @@ public class Radio implements IRadio {
     public boolean power; 
     public double station; 
     public int buttonID; 
-    private double[] savedStationsAM;
+    double[] savedStationsAM;
     private double[] savedStationsFM;
 
     public Radio() {
